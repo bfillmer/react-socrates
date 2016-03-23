@@ -1,4 +1,4 @@
 
 # React & Redux Boilerplate
 
-Leveraging React and Socarates-wrapped Redux for a simple to spin up front-end boilerplate.
+Leveraging React and Socrates-wrapped Redux for a simple to spin up front-end boilerplate.
