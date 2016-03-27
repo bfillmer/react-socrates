@@ -1,6 +1,6 @@
 {
   "name": "bp-react-redux",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple and opinionated React & Redux boilerplate.",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.babel.js --hot --inline --colors",

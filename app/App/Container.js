@@ -1,31 +1,19 @@
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import SocratesContainer from './SocratesContainer';
 
 /**
  * @NOTE
- * Currently app takes the prop store, the Socrates-wrapped store, subscribes to it,
- * and can pass along the internal state of store to children. Extend this into
- * a standard reusable component that can be reused by any container. Thus any
- * stateless components will simple pass along the store, if needed, or be getting
- * "unwrapped" data from their parent container.
+ * Extending the SocratesContainer here is not really necessary as we
+ * don't want data to display, we would nominally pass along Redux store
+ * here, not even bothering with a class component, preferring stateless
+ * functional until such time as we will need to interact with data.
  */
 
-class App extends Component {
-
-  constructor (props) {
-    super(props);
-    this.state = {
-      store: {},
-    };
-  }
+class App extends SocratesContainer {
 
   componentWillMount () {
-    this.setState({
-      store: this.props.store(),
-    });
-    this.props.store.subscribe((s) => this.setState({
-      store: s,
-    }));
+    super.componentWillMount();
   }
 
   // Pass this.state.store down as the Redux store.
