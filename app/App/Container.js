@@ -1,6 +1,6 @@
 
 import React, { PropTypes } from 'react';
-import SocratesContainer from './SocratesContainer';
+import SocratesContainer from 'socrates-container';
 
 /**
  * @NOTE
