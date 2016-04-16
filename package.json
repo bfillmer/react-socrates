@@ -12,9 +12,12 @@
   "author": "Bryan Fillmer <bryan.fillmer@gmail.com> (http://github.com/bfillmer)",
   "license": "ISC",
   "dependencies": {
+    "enroute": "^1.0.1",
     "immutable": "^3.7.6",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "redux-logger": "^2.6.1",
+    "redux-routes": "^1.0.3",
     "socrates": "^1.0.2",
     "socrates-container": "^1.0.0"
   },
