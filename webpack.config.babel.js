@@ -17,7 +17,6 @@ module.exports = {
   entry: {
     app: path.resolve(app, 'index.js'),
     vendors: [
-      'immutable',
       'react',
       'react-dom',
       'socrates',
@@ -26,7 +25,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app.js',
-    publicPath: '/static/',
+    publicPath: '/bin/',
   },
   module: {
     loaders: [
