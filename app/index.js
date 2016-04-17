@@ -1,61 +1,81 @@
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { render } from 'react-dom';
-import SocratesContainer from 'socrates-container';
+import socrates from 'socrates';
+import history, { navigate } from 'redux-routes';
+import logger from 'redux-logger';
 import route from 'enroute';
-import { navigate } from 'redux-routes';
 
-import store from './store';
+// Setup our Socrates store.
+const store = socrates([
+  history(),
+  logger(),
+]);
 
+store('boot', {
+  url: document.location.pathname,
+  text: {
+    greeting: 'Welcome to the website, friend!',
+    blogTitle: 'This is the blog!',
+  },
+});
+
+// Demo Components
 const Home = ({
-  dispatch,
-  greeting,
+  action,
+  text,
 }) => (
   <div className = "container-home">
-    <h1>{ greeting }</h1>
-    <button onClick={() => dispatch(navigate('/blog'))}>Go to the blog</button>
+    <h1>{ text.greeting }</h1>
+    <button onClick={() => action(navigate('/blog'))}>Go to the blog</button>
   </div>
 );
 
 Home.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  greeting: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+  text: PropTypes.object.isRequired,
 };
 
 const Blog = ({
-  dispatch,
-  blogTitle,
+  action,
+  text,
 }) => (
   <div className = "container-blog">
-    <h1>{ blogTitle }</h1>
-    <button onClick={() => dispatch(navigate('/'))}>Go home</button>
+    <h1>{ text.blogTitle }</h1>
+    <button onClick={() => action(navigate('/'))}>Go home</button>
   </div>
 );
 
 Blog.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  blogTitle: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+  text: PropTypes.object.isRequired,
 };
 
-class App extends SocratesContainer {
+// Primary container component, sets state to the contents of the Socrates
+// store on mount and when the store changes.
+class App extends Component {
+  componentWillMount () {
+    this.setState(this.props.store());
+    this.props.store.subscribe(s => this.setState(s));
+  }
+
   render () {
     return route({
-      '/blog': (params) => (
-        <Blog dispatch = { this.props.store } {...this.state.store } { ...params } />
+      '/blog': () => (
+        <Blog { ...this.state } action = { this.props.store } />
       ),
-      '*': (params) => (
-        <Home dispatch = { this.props.store } { ...this.state.store } { ...params } />
+      '*': () => (
+        <Home { ...this.state } action = { this.props.store } />
       ),
-    })(this.state.store.url);
+    })(this.state.url);
   }
 }
 
-store('boot', {
-  url: document.location.pathname,
-  greeting: 'Welcome to the website, friend!',
-  blogTitle: 'This is the blog!',
-});
+App.propTypes = {
+  store: PropTypes.func.isRequired,
+};
 
+// Render our application.
 render(
   <App store = { store } />,
   document.getElementById('app')
