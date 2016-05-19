@@ -75,8 +75,13 @@ App.propTypes = {
   store: PropTypes.func.isRequired,
 };
 
+const appNode = document.createElement('div');
+appNode.id = 'app';
+
+document.body.appendChild(appNode);
+
 // Render our application.
 render(
   <App store = { store } />,
-  document.getElementById('app')
+  appNode
 );

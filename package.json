@@ -1,14 +1,17 @@
 {
   "name": "react-socrates",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple and opinionated React & Socrates (Redux) boilerplate.",
   "scripts": {
+    "build": "webpack --config webpack.config.babel.js --colors",
     "dev": "webpack-dev-server --config webpack.config.babel.js --hot --inline --colors --history-api-fallback",
     "lint": "eslint ./; exit 0",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "reset": "npm run clean && npm install",
+    "clean": "npm run clean-npm && npm run clean-dist",
+    "update": "updtr",
+    "clean-dist": "rm -rf dist",
     "clean-npm": "rm -rf node_modules",
-    "reset-npm": "npm run clean-npm && npm install",
-    "update-npm": "updtr"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bryan Fillmer <bryan.fillmer@gmail.com> (http://github.com/bfillmer)",
   "repository": {
@@ -17,6 +20,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.11.1",
     "enroute": "^1.0.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
@@ -36,6 +40,8 @@
     "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-jsx-a11y": "^0.6.2",
     "eslint-plugin-react": "^4.2.3",
+    "html-webpack-plugin": "^2.17.0",
+    "updtr": "^0.1.14",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }
