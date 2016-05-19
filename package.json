@@ -1,6 +1,6 @@
 {
   "name": "react-socrates",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple and opinionated React & Socrates (Redux) boilerplate.",
   "scripts": {
     "build": "webpack --config webpack.config.babel.js --colors",
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "https://github.com/bfillmer/react-socrates"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.11.1",
     "enroute": "^1.0.1",
