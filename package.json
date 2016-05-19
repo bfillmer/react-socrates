@@ -1,6 +1,6 @@
 {
   "name": "react-socrates",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simple and opinionated React & Socrates (Redux) boilerplate.",
   "scripts": {
     "build": "webpack --config webpack.config.babel.js --colors",
