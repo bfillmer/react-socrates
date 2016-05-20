@@ -9,6 +9,18 @@ const nodeModules = path.resolve(__dirname, 'node_modules');
 const BUILD = process.env.npm_lifecycle_event === 'build';
 const DEV = process.env.npm_lifecycle_event === 'dev';
 
+// Node-managed vendors for concatenating into the vendors.js file.
+const vendors = [
+  'axios',
+  'classnames',
+  'enroute',
+  'react',
+  'react-dom',
+  'redux-logger',
+  'redux-routes',
+  'socrates',
+];
+
 // Webpack Plugins
 const plugins = [
   // Reference: http://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
@@ -39,6 +51,7 @@ if (BUILD) {
   );
 }
 
+// Primary configuration.
 const config = {
   resolve: {
     root: app,
@@ -50,15 +63,7 @@ const config = {
   },
   entry: {
     app: path.resolve(app, 'index.js'),
-    vendors: [
-      'axios',
-      'enroute',
-      'react',
-      'react-dom',
-      'redux-logger',
-      'redux-routes',
-      'socrates',
-    ],
+    vendors,
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -76,11 +81,36 @@ const config = {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
         loader: 'file',
       },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass'],
+      },
+      {
+        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&mimetype=application/font-woff',
+      },
+      {
+        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&mimetype=application/font-woff',
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&mimetype=application/octet-stream',
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file',
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&mimetype=image/svg+xml',
+      },
     ],
   },
   plugins,
 };
 
+// Additional dev server configuration.
 if (DEV) {
   config.devServer = {
     contentBase: './dist',

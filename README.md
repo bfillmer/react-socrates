@@ -23,3 +23,12 @@ npm run clean # clear dist/ and node_modules/
 npm run update # update node_modules
 npm run test # tape unit tests
 ```
+
+## Development Notes
+
+* Any paths leveraged within the codebase are relative to the `app/` directory.
+* Any additional node modules needed by the application should be added to the `vendors` array in `webpack.config.babel.js` so they are concatenated into `vendors.js` on build.
+
+## Credits
+
+* David Huff [davidryanhuff@gmail.com](davidryanhuff@gmail.com): For the Atomic CSS structure, and generally being a badass.
