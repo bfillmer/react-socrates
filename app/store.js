@@ -9,10 +9,14 @@ export const store = socrates([
   logger(),
 ]);
 
-store('boot', {
-  url: document.location.pathname,
-  text: {
-    greeting: 'Welcome to the website, friend!',
-    blogTitle: 'This is the blog!',
+// Boot up store.
+store({
+  type: 'boot',
+  payload: {
+    url: document.location.pathname,
+    text: {
+      greeting: 'Welcome to the website, friend!',
+      blogTitle: 'This is the blog!',
+    },
   },
 });
