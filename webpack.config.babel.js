@@ -37,6 +37,13 @@ const plugins = [
 // Build-only Webpack Plugins
 if (BUILD) {
   plugins.push(
+
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+
     // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
     // Only emit files when there are no errors
     new webpack.NoErrorsPlugin(),
@@ -47,12 +54,20 @@ if (BUILD) {
 
     // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
     // Minify all javascript, switch loaders to minimizing mode
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+      },
+      comments: false,
+      sourceMap: false,
+    })
   );
 }
 
 // Primary configuration.
 const config = {
+  devtool: BUILD ? 'cheap-module-source-map' : 'eval',
   resolve: {
     root: app,
     extensions: [
@@ -78,12 +93,12 @@ const config = {
         exclude: nodeModules,
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-        loader: 'file',
-      },
-      {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass'],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        loader: 'url?limit=10000',
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -98,12 +113,12 @@ const config = {
         loader: 'url?limit=10000&mimetype=application/octet-stream',
       },
       {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file',
-      },
-      {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=image/svg+xml',
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file',
       },
     ],
   },

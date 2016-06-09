@@ -3,7 +3,7 @@
   "version": "0.0.8",
   "description": "Simple and opinionated React & Socrates (Redux) boilerplate.",
   "scripts": {
-    "build": "webpack --config webpack.config.babel.js --colors",
+    "build": "npm run clean-dist && webpack --config webpack.config.babel.js --colors",
     "dev": "webpack-dev-server --config webpack.config.babel.js --hot --inline --colors --history-api-fallback",
     "lint": "eslint ./; exit 0",
     "reset": "npm run clean && npm install",
